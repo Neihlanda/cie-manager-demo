@@ -11,7 +11,7 @@ const essentialLinks = [
   },
   {
     title: 'Prèrequis',
-    link: '/',
+    link: '/prerequis',
     icon: 'key',
   },
   {

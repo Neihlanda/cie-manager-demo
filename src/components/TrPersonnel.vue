@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <template v-if="editMode">
+    <!--<template v-if="editMode">
       <td>
         <q-input
           v-model="model.nom"
@@ -8,6 +8,7 @@
           label="Nom"
           dense
           class="text-uppercase"
+          bottom-slots
           :autofocus="true"
           :rules="[
             (val) =>
@@ -68,13 +69,43 @@
           @keyup.enter="inputOnKeyUpEnterFn"
         />
       </td>
+
+      <td>
+        <InputDate v-model="model.dateFinVMP" />
+      </td>
+
+      <td>
+        <InputDate v-model="model.dateFinContrat" />
+      </td>
+      <td>
+        <InputDate v-model="model.dateRecyclageLegad" />
+      </td>
+
+      <td><q-checkbox v-model="model.ppaValid" hint="PPA Valide" /></td>
+      <td>
+        <q-select
+          v-model="model.habilitation"
+          :options="HabilitationOptions"
+          filled
+          dense
+        />
+      </td>
+      <td>
+        <InputDate v-model="model.finHabilitation" />
+      </td>
     </template>
-    <template v-else>
-      <td class="upper">{{ personnel.nom }}</td>
-      <td class="capitalize">{{ personnel.prenom }}</td>
-      <td>{{ personnel.nid }}</td>
-      <td>{{ personnel.sap }}</td>
-    </template>
+-->
+    <template> </template>
+    <td class="upper">{{ model.nom }}</td>
+    <td class="capitalize">{{ model.prenom }}</td>
+    <td>{{ model.nid }}</td>
+    <td>{{ model.sap }}</td>
+    <td>{{ model.dateFinVMP }}</td>
+    <td>{{ model.dateRecyclageLegad }}</td>
+    <td>{{ model.dateFinContrat }}</td>
+    <td><q-checkbox v-model="model.ppaValid" disable /></td>
+    <td>{{ model.habilitation }}</td>
+    <td>{{ model.finHabilitation }}</td>
     <td>
       <q-btn
         v-for="(action, index) in actionsConfig"
@@ -93,7 +124,9 @@
 //TODO : Ajouter les inputs pour les données manquantes
 //TODO : Méthode de validation
 import { Personnel } from 'src/models/personnel';
+import { HabilitationOptions } from 'src/models/habilitation';
 import { computed } from 'vue';
+import InputDate from './inputDate.vue';
 
 interface Props {
   personnel: Personnel;

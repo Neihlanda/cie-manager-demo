@@ -1,3 +1,6 @@
+import { Habilitation } from './habilitation';
+import { PrerequisIec, PrerequisSecourisme, PrerequisTior } from './prerequis';
+
 export class Personnel {
   nid!: string;
   sap!: string;
@@ -5,12 +8,16 @@ export class Personnel {
   prenom!: string;
   grade!: string;
 
-  dateFinVMP!: Date | undefined;
-  dateFinContrat!: Date | undefined;
-  dateRecyclageLegad!: Date | undefined;
-  ppaValid: boolean | undefined;
-  habilitation!: string | undefined;
-  finHabilitation!: Date | undefined;
+  dateFinVMP!: string | undefined;
+  dateFinContrat!: string | undefined;
+  dateRecyclageLegad!: string | undefined;
+  ppaValid = false;
+  habilitation!: Habilitation | string | undefined;
+  finHabilitation!: string | undefined;
+
+  prerequisSecourisme: PrerequisSecourisme = new PrerequisSecourisme();
+  prerequisTior: PrerequisTior = new PrerequisTior();
+  prerequisIec: PrerequisIec = new PrerequisIec();
 
   constructor(personnel: Partial<Personnel>) {
     Object.assign(this, personnel);
@@ -19,6 +26,7 @@ export class Personnel {
     this.nid = this.nid || '';
     this.nom = this.nom || '';
     this.prenom = this.prenom || '';
+    this.ppaValid = this.ppaValid || false;
   }
 
   get fullName(): string {

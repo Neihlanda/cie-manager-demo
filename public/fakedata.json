@@ -4,7 +4,11 @@
       "id": 1,
       "firstName": "Terry",
       "lastName": "Medhurst",
-      "ip": "117.29.86.254"
+      "ip": "117.29.86.254",
+      "prerequisSecourisme": {
+        "sc1": { "dateInitial": "01/02/2020", "dateRecyclage": "01/02/2022" },
+        "psc1": { "dateInitial": "01/10/2019", "dateRecyclage": "02/03/2022" }
+      }
     },
     {
       "id": 2,

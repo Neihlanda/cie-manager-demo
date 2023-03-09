@@ -23,6 +23,7 @@ export const usePersonnelsStore = defineStore('counter', {
               nom: a.firstName,
               prenom: a.lastName,
               sap: Math.floor(Math.random() * 1000000000).toString(),
+              prerequisSecourisme: a.prerequisSecourisme
             })
         );
       });

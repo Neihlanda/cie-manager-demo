@@ -38,28 +38,32 @@
       :items="personnelsFiltered"
     >
       <template #before>
-        <thead>
+        <thead class="thead-sticky">
           <tr>
             <th>Nom</th>
             <th>Prénom</th>
             <th>NID</th>
             <th>SAP</th>
-            <th></th>
+            <th>Fin VMP</th>
+            <th>Fin contrat</th>
+            <th>Recyclage LEGAD</th>
+            <th>PPA</th>
+            <th>Habilitation</th>
+            <th>Fin habilitation</th>
+            <th>
+              <q-btn
+                color="primary"
+                icon="add"
+                @click="showCreateDialog = true"
+              />
+              <DialogPersonnel
+                :personnel="personnelToCreate"
+                title="Ajouter un personnel"
+                v-model="showCreateDialog"
+              />
+            </th>
           </tr>
         </thead>
-        <TrPersonnel
-          v-bind:personnel="personnelToCreate"
-          edit-mode
-          :input-on-key-up-enter-fn="addPersonnel"
-          :actions-config="[
-            {
-              icon: 'add',
-              tooltip: 'Ajouter le personnel dans la base',
-              color: 'primary',
-              onClick: () => addPersonnel,
-            },
-          ]"
-        />
       </template>
 
       <template v-slot="{ item }">
@@ -67,8 +71,17 @@
           :key="item.nid"
           v-bind:personnel="item"
           :edit-mode="editMode"
-          :input-on-key-up-enter-fn="addPersonnel"
           :actions-config="[
+            {
+              icon: 'edit',
+              tooltip: 'Modifier le personnel',
+              color: 'primary',
+              onClick: () => {
+                personnelToEdit = item;
+                showEditDialog = true;
+                return;
+              },
+            },
             {
               icon: 'delete',
               tooltip: 'Supprimer le personnel',
@@ -79,6 +92,12 @@
         />
       </template>
     </q-virtual-scroll>
+
+    <DialogPersonnel
+      :personnel="personnelToEdit"
+      title="Modifier la ficher personnel"
+      v-model="showEditDialog"
+    />
   </div>
 </template>
 
@@ -88,13 +107,17 @@ import { Personnel } from 'src/models/personnel';
 import TrPersonnel from 'components/TrPersonnel.vue';
 import { useQuasar } from 'quasar';
 import { usePersonnelsStore } from 'stores/personnelStore';
+import DialogPersonnel from 'src/components/DialogPersonnel.vue';
 
 const $q = useQuasar();
 const filterText = ref('');
 const personnels = ref<Personnel[]>([]);
+const personnelToEdit = ref(new Personnel({}));
 const personnelToCreate = ref(new Personnel({}));
 const editMode = ref(false);
 const store = usePersonnelsStore();
+const showCreateDialog = ref(false);
+const showEditDialog = ref(false);
 
 onMounted(() => {
   store.loadPersonnels().then(() => (personnels.value = store.personnels));
@@ -134,4 +157,6 @@ function removePersonnel(personnelToRemove: Personnel) {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+
+</style>
