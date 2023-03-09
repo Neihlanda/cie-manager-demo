@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
+import { off } from 'process';
 import { api } from 'src/boot/axios';
 import { Personnel } from 'src/models/personnel';
+import { PrerequisSecourisme } from 'src/models/prerequis';
 
 export const usePersonnelsStore = defineStore('counter', {
   state: () => ({
@@ -9,12 +11,11 @@ export const usePersonnelsStore = defineStore('counter', {
   actions: {
     async loadPersonnels() {
       this.personnels = this.personnels || [];
-
-      return api.get('/fakedata.json').then((resp) => {
-        console.log(resp.data);
-        this.personnels = resp.data.users.map(
-          (a: any) =>
-            new Personnel({
+      if (this.personnels.length === 0)
+        return api.get('/fakedata.json').then((resp) => {
+          console.log(resp.data);
+          this.personnels = resp.data.users.map((a: any) => {
+            const personnel = new Personnel({
               nid: (
                 Math.floor(Math.random() * 100).toString() +
                 Math.floor(Math.random() * 100).toString() +
@@ -23,10 +24,25 @@ export const usePersonnelsStore = defineStore('counter', {
               nom: a.firstName,
               prenom: a.lastName,
               sap: Math.floor(Math.random() * 1000000000).toString(),
-              prerequisSecourisme: a.prerequisSecourisme
-            })
-        );
-      });
+              prerequisSecourisme: new PrerequisSecourisme(),
+            });
+            if (a.prerequisSecourisme) {
+              personnel.prerequisSecourisme.psc1.dateInitial = new Date(
+                a.prerequisSecourisme.psc1.dateInitial
+              );
+              personnel.prerequisSecourisme.psc1.dateRecyclage = new Date(
+                a.prerequisSecourisme.psc1.dateRecyclage
+              );
+              personnel.prerequisSecourisme.sc1.dateInitial = new Date(
+                a.prerequisSecourisme.sc1.dateInitial
+              );
+              personnel.prerequisSecourisme.sc1.dateRecyclage = new Date(
+                a.prerequisSecourisme.sc1.dateRecyclage
+              );
+            }
+            return personnel;
+          });
+        });
     },
   },
 });

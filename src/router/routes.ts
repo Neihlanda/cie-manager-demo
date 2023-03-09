@@ -16,10 +16,13 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/prerequis',
+    path: '/prerequisSecourisme',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('src/pages/PrerequisPage.vue') },
+      {
+        path: '',
+        component: () => import('src/pages/PrerequisSecourismePage.vue'),
+      },
     ],
   },
 

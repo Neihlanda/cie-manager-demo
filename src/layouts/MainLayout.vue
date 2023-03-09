@@ -29,11 +29,21 @@
       side="left"
     >
       <q-list>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <template v-for="link in essentialLinks" :key="link.title">
+          <template v-if="link.link">
+            <EssentialLink v-bind="link" />
+          </template>
+          <template v-if="link.sublink">
+            <q-separator spaced />
+            <q-item-label header>{{ link.title }}</q-item-label>
+            <QItemSection>
+              <template v-for="sublink in link.sublink" :key="sublink.title">
+                <EssentialLink v-bind="sublink" />
+              </template>
+            </QItemSection>
+            <q-separator spaced />
+          </template>
+        </template>
       </q-list>
     </q-drawer>
 
