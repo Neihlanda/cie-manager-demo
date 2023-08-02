@@ -1,6 +1,5 @@
 # Suivis Cie (suivis-cie)
-
-A Quasar Project
+POC d'une application de gestion et de suivis des formations d'une base de personnel pour remplacer une gestion par fichier excel.
 
 ## Install the dependencies
 ```bash
