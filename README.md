@@ -1,6 +1,6 @@
 # Suivis Cie (suivis-cie)
-POC d'une application de gestion et de suivis des formations d'une base de personnel pour remplacer une gestion par fichier excel.
-
+Simple POC d'une application de gestion et de suivis des formations d'une base de personnel pour remplacer une gestion par fichier excel pour objectif de démonstration.
+Projet archivé suite à la réalisation d'une application métier basé sur ce POC.
 ## Install the dependencies
 ```bash
 yarn
